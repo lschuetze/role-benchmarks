@@ -8,6 +8,9 @@ then
 elif [ "$1" = "9" ]
 then
     export JAVA_HOME=$JAVA9_HOME
+elif [ "$1" = "11" ]
+then
+    export JAVA_HOME=$JAVA11_HOME
 else
     echo "Java version was neither 8 or 9"
 fi
