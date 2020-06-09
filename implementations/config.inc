@@ -27,9 +27,9 @@ then
     if [[ -z $jvm_info ]]; then echo "Java 9 installation not found"; exit 1; fi
     export JAVA9_HOME=${jvm_info[2]}
     # Java 11
-    jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-9\|java-1.9' || true`)
-    if [[ -z $jvm_info ]]; then echo "Java 9 installation not found"; exit 1; fi
-    export JAVA9_HOME=${jvm_info[2]}
+    jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-11\|java-1.11' || true`)
+    if [[ -z $jvm_info ]]; then echo "Java 11 installation not found"; exit 1; fi
+    export JAVA11_HOME=${jvm_info[2]}
 else
     echo "Java directories could not be guessed, please check config.inc"
 fi
