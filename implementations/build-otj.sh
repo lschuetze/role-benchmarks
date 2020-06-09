@@ -2,7 +2,7 @@
 SCRIPT_PATH=`dirname $0`
 source $SCRIPT_PATH/script.inc
 source $SCRIPT_PATH/config.inc
-if [ "$1" = "8" ]
+if [ "$1" = "1.8" ]
 then
     export JAVA_HOME=$JAVA8_HOME
 elif [ "$1" = "9" ]
@@ -22,22 +22,22 @@ then
     if [ "$3" = "2.5.0" ]
     then
         echo "ObjectTeams Classic 2.5.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/classic-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-2.5.0 -Dsource=1.8 -Dtarget=1.8
+        ant jar -lib $SCRIPT_PATH/objectteams/classic-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-2.5.0 -Dsource=${1} -Dtarget=${1}
     elif [ "$3" = "3.8.0" ]
     then
         echo "ObjectTeams Classic 3.8.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/classic-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.8.0 -Dsource=11 -Dtarget=11
+        ant jar -lib $SCRIPT_PATH/objectteams/classic-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.8.0 -Dsource=${1} -Dtarget=${1}
     fi
 elif [ "$2" = "indy" ]
 then
     if [ "$3" = "2.5.0" ]
     then
         echo "ObjectTeams Indy 2.5.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/indy-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-2.5.0 -Dsource=9 -Dtarget=9
+        ant jar -lib $SCRIPT_PATH/objectteams/indy-2.5.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-2.5.0 -Dsource=${1} -Dtarget=${1}
     elif [ "$3" = "3.8.0" ]
     then
         echo "ObjectTeams Indy 3.8.0"
-        ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0 -Dsource=11 -Dtarget=11
+        ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0 -Dsource=${1} -Dtarget=${1}
     fi
 fi
 

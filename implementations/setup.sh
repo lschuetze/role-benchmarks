@@ -32,7 +32,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "\r\nBuild benchmarks."
     # Build benchmarks
     /bin/bash $SCRIPT_PATH/build-java.sh 11
-    /bin/bash $SCRIPT_PATH/build-otj.sh 8 classic 2.5.0
+    /bin/bash $SCRIPT_PATH/build-otj.sh 1.8 classic 2.5.0
     /bin/bash $SCRIPT_PATH/build-otj.sh 11 indy 2.5.0
 else
     echo "Aborting ..."
