@@ -30,7 +30,7 @@
       </zipgroupfileset>
     </jar>
     <sleep seconds="1" />
-    <jar jarfile="benchmarks.jar" basedir="build">
+    <jar jarfile="benchmarks-${apr}-${ver}.jar" basedir="build">
       <zipfileset src="build/deps.jar" excludes="META-INF/*.SF" />
       <manifest>
         <attribute name="Main-Class" value="benchmark.Harness" />

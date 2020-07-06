@@ -34,6 +34,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     /bin/bash $SCRIPT_PATH/build-java.sh 11
     /bin/bash $SCRIPT_PATH/build-otj.sh 1.8 classic 2.5.0
     /bin/bash $SCRIPT_PATH/build-otj.sh 11 indy 2.5.0
+    /bin/bash $SCRIPT_PATH/build-otj.sh 11 classic 3.8.0
+    /bin/bash $SCRIPT_PATH/build-otj.sh 11 indy 3.8.0
 else
     echo "Aborting ..."
 fi
