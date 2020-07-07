@@ -2,3 +2,4 @@ benchmarks/Java/build
 benchmarks/ObjectTeams/build
 benchmarks.jar
 benchmarks/ObjectTeams/benchmarks-*.jar
+benchmark.data
