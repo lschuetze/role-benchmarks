@@ -15,7 +15,8 @@
 
   <target name="compile" depends="clean">
     <mkdir dir="build" />
-    <javac srcdir="src" destdir="build" source="${source}" target="${target}" debug="true"
+    <mkdir dir="build/classes" />
+    <javac srcdir="src" destdir="build/classes" source="${source}" target="${target}" debug="true"
            includeantruntime="false">
       <classpath refid="project.classpath" />
       <compilerarg value="-ot.weaving:otdre" />
@@ -30,8 +31,8 @@
       </zipgroupfileset>
     </jar>
     <sleep seconds="1" />
-    <jar jarfile="benchmarks-${apr}-${ver}.jar" basedir="build">
-      <zipfileset src="build/deps.jar" excludes="META-INF/*.SF" />
+    <jar jarfile="benchmarks-${apr}-${ver}.jar" basedir="build/classes">
+      <zipfileset src="build/deps.jar" excludes="META-INF/*.SF,META-INF/*.DSA,META-INF/*.RSA" />
       <manifest>
         <attribute name="Main-Class" value="benchmark.Harness" />
       </manifest>
@@ -40,5 +41,6 @@
 
   <target name="clean">
     <delete dir="build" />
+    <delete file="benchmarks-${apr}-${ver}.jar" />
   </target>
 </project>
