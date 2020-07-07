@@ -1,4 +1,4 @@
 benchmarks/Java/build
 benchmarks/ObjectTeams/build
-benchmarks/ObjectTeamsIndy/build
 benchmarks.jar
+benchmarks/ObjectTeams/benchmarks-*.jar
