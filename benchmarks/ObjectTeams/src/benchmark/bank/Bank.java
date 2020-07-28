@@ -68,12 +68,12 @@ public team class Bank {
         }
 
         public void before() {
-            // System.out.println("before CheckingsAccount decrease");
+            //System.out.println("before CheckingsAccount decrease");
         }
 
         //void after() <- after void decrease(float amount);
 
-        void before() <- before float decrease(float amount);
+        //void before() <- before float decrease(float amount);
 
         float limited(float amount) <- replace float decrease(float amount);
 
@@ -84,12 +84,17 @@ public team class Bank {
             private static final float FEE = 1.1f;
 
             callin float withFee(float amount) {
-                // System.out.println("SavingsAccount replace BEGIN");
+                //System.out.println("SavingsAccount replace BEGIN");
                 float f = base.withFee(amount * FEE);
-                // System.out.println("SavingsAccount replace END");
+                //System.out.println("SavingsAccount replace END");
                 return f;
             }
 
+            public void before() {
+                //System.out.println("before SavingsAccount decrease");
+            }
+
+            void before() <- before float decrease(float amount);
             float withFee(float amount) <- replace float decrease(float amount);
         }
 }

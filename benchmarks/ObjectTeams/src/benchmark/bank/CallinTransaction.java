@@ -5,9 +5,9 @@ public team class CallinTransaction {
 	public class Source playedBy Account {
 
 		callin float withDraw(float amount) {
-			// System.out.println("Source replace BEGIN");
+			//System.out.println("Source replace BEGIN");
 			float f = base.withDraw(amount);
-			// System.out.println("Source replace END");
+			//System.out.println("Source replace END");
 			return f;
 		}
 
@@ -15,11 +15,11 @@ public team class CallinTransaction {
 		    // System.out.println("Source after");
 		}
 
-		public void before() {
+		public void before(float a) {
 		    // System.out.println("Source before");
         }
 
-    	void before() <- before float decrease(float amount);
+    	void before(float a) <- before float decrease(float amount);
         //void after() <- after void decrease(float amount);
 
 		float withDraw(float amount) <- replace float decrease(float amount);

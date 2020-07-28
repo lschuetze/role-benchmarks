@@ -17,7 +17,7 @@ public final class Run {
 	@SuppressWarnings("unchecked")
 	private static Class<? extends Benchmark> getSuiteFromName(final String name) {
 		try {
-			return (Class<? extends Benchmark>) Class.forName(name);
+			 return (Class<? extends Benchmark>) Class.forName(name);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

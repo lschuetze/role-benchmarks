@@ -12,8 +12,8 @@ public class BankBenchmark2 extends Benchmark {
     @Override
     public boolean innerBenchmarkLoop(final int innerIterations) {
         bank.activate();
+        float amount = 100.0f;
         for (Account from : bank.getCheckingAccounts()) {
-            float amount = 100.0f;
             for (Account to : bank.getSavingAccounts()) {
                     from.decrease(amount);
                     to.increase(amount);
