@@ -11,8 +11,11 @@ then
 elif [ "$1" = "11" ]
 then
     export JAVA_HOME=$JAVA11_HOME
+elif [ "$1" = "14" ]
+then
+    export JAVA_HOME=$JAVA14_HOME
 else
-    echo "Java version was neither 8 or 9"
+    echo "Java version was neither 8, 9, 11 or 14"
 fi
 # Decide which ObjectTeams implementation to build with
 echo "Build ObjectTeams Benchmarks"
