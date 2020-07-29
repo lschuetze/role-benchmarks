@@ -22,32 +22,36 @@ then
     # Java 8
     jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-8\|java-1.8' || true`)
     if [[ -z $jvm_info ]];
-        then echo "Java 8 installation not found";
-        export JAVA8_HOME=""
+        if [ -z "$JAVA9_HOME" ] then
+            echo "Java 8 installation not found";
+        fi
     else
         export JAVA8_HOME=${jvm_info[2]}
     fi
     # Java 9
     jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-9\|java-1.9' || true`)
     if [[ -z $jvm_info ]];
-        then echo "Java 9 installation not found";
-        export JAVA9_HOME=""
+        if [ -z "$JAVA9_HOME" ] then
+            echo "Java 9 installation not found";
+        fi
     else
         export JAVA9_HOME=${jvm_info[2]}
     fi
     # Java 11
     jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-11\|java-1.11' || true`)
     if [[ -z $jvm_info ]];
-        then echo "Java 11 installation not found";
-        export JAVA11_HOME=""
+        if [ -z "$JAVA11_HOME" ] then
+            echo "Java 11 installation not found";
+        fi
     else
         export JAVA11_HOME=${jvm_info[2]}
     fi
     # Java 14
     jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-14\|java-1.14' || true`)
     if [[ -z $jvm_info ]]; then
-        echo "Java 14 installation not found";
-        export JAVA14_HOME=""
+        if [ -z "$JAVA14_HOME" ] then
+            echo "Java 14 installation not found";
+        fi
     else
         export JAVA14_HOME=${jvm_info[2]}
     fi
