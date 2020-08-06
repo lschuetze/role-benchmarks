@@ -31,8 +31,8 @@ public class BankBenchmark2 extends Benchmark {
             Person p = new Person();
             bank.addCustomer(p);
 
-            Account sa = new Account(0, 1000.0f);
-            Account ca = new Account(0, 1000.0f);
+            Account sa = new Account(i, 1000.0f);
+            Account ca = new Account(i, 1000.0f);
             bank.addSavingsAccount(p, sa);
             bank.addCheckingsAccount(p, ca);
         }
