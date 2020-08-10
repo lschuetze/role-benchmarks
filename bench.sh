@@ -4,7 +4,7 @@ USER_BASE_PATH=`python3 -m site --user-base`
 
 $USER_BASE_PATH/bin/rebench -d --scheduler=random --without-nice bench.conf all
 
-DATA_ROOT=./data
+DATA_ROOT=`pwd`/data
 
 REV=`git rev-parse HEAD | cut -c1-8`
 
