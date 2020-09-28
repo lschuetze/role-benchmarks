@@ -9,7 +9,7 @@ popd > /dev/null
 source $SCRIPT_PATH/config-extra.inc
 
 export JVMCI_VERSION_CHECK=ignore
-GRAAL_JIT_FLAGS="-server -d64 -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCI -XX:+UseJVMCICompiler "
+GRAAL_JIT_FLAGS="-server -Xmx8G -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCI -XX:+UseJVMCICompiler "
 JDK_JIT_FLAGS="-server -Xmx8G "
 
 if [ -x /usr/libexec/java_home ]   # usually on OS X, this tool is available
