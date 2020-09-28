@@ -2,7 +2,7 @@
 
 USER_BASE_PATH=`python3 -m site --user-base`
 
-$USER_BASE_PATH/bin/rebench -d --scheduler=random --without-nice bench.conf all
+$USER_BASE_PATH/bin/rebench -c --scheduler=random --without-nice bench.conf all
 
 DATA_ROOT=`pwd`/data
 
