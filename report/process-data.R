@@ -1,6 +1,6 @@
+library("ggplot2", character.only=TRUE)
 library("plyr", character.only=TRUE)
 library("dplyr", character.only=TRUE)
-library("ggplot2", character.only=TRUE)
 library("psych", character.only=TRUE)
 library("tables", character.only=TRUE)
 library("reshape2", character.only=TRUE)
@@ -137,8 +137,7 @@ plot_data <- function(stats) {
                   fill = Approach,
                   group = Approach,
                   colour = Approach)) +
-    labs(x = "Million of Iterations", y = "Runtime Factor normalized to Classic 2020") +
-    theme_bw() +
+    labs(x = "Million of Iterations", y = "Runtime factor normalized to Classic 2020 \n lower is better") +
     theme(axis.text.x = element_text(angle=80, hjust=1), legend.position = "top", legend.title = element_blank()) +
     facet_wrap(~ Benchmark, scales = "free") +
     scale_y_log10() +
@@ -168,10 +167,21 @@ norm <- data %>%
   mutate(RuntimeRatio = Value / Value_baseline) %>%
   mutate(RuntimeRatio2 = Value_baseline / Value) %>%
   select(-Value_baseline)
-# Calculate your ratio
-#norm <- df_compare %>%
-#  mutate(RuntimeRatio = Value / Value_baseline)
 
+# Rename
+levels(norm$Approach)  <- map_names(
+  levels(norm$Approach),
+  name_map)
+
+norm$Benchmark  <- map_names(
+  norm$Benchmark,
+  name_map2)
+
+norm$Approach <- as.character(norm$Approach)
+norm$Approach[norm$VM == "GraalCE11"] <- "Polymorphic Dispatch Plans Graal"
+norm$Approach <- as.factor(norm$Approach)
+
+# Calculate your ratio
 stats <- norm %>%
   group_by(VM, Benchmark, Approach, Var, version, sha) %>% # Value
   summarise(
@@ -185,21 +195,10 @@ stats <- norm %>%
 name_map <- list("test-objectteams-classic-25" = "Classic 2019",
                  "test-objectteams-classic-38" = "Classic 2020",
                  "test-objectteams-indy-25" = "Dispatch Plans",
-                 "test-objectteams-indy-38" = "Polymorphic Dispatch Plans",
-                 "benchmark.BankBenchmark" = "Dynamic Suite",
-                 "benchmark.BankBenchmark2" = "Static Suite")
+                 "test-objectteams-indy-38" = "Polymorphic Dispatch Plans")
 
 name_map2 <- list("benchmark.BankBenchmark" = "Dynamic Benchmark",
                   "benchmark.BankBenchmark2" = "Static Benchmark")
-
-# Rename
-levels(stats$Approach)  <- map_names(
-  levels(stats$Approach),
-  name_map)
-
-stats$Benchmark  <- map_names(
-  stats$Benchmark,
-  name_map2)
 
 stats <- filter(stats, Approach != "Classic 2020")
 
