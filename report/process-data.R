@@ -168,6 +168,14 @@ norm <- data %>%
   mutate(RuntimeRatio2 = Value_baseline / Value) %>%
   select(-Value_baseline)
 
+name_map <- list("test-objectteams-classic-25" = "Classic 2019",
+                 "test-objectteams-classic-38" = "Classic 2020",
+                 "test-objectteams-indy-25" = "Dispatch Plans",
+                 "test-objectteams-indy-38" = "Polymorphic Dispatch Plans")
+
+name_map2 <- list("benchmark.BankBenchmark" = "Variable Contexts Benchmark",
+                  "benchmark.BankBenchmark2" = "Static Context Benchmark")
+
 # Rename
 levels(norm$Approach)  <- map_names(
   levels(norm$Approach),
@@ -192,15 +200,8 @@ stats <- norm %>%
     RR.sd         = sd(RuntimeRatio),
     RR.median     = median(RuntimeRatio))
 
-name_map <- list("test-objectteams-classic-25" = "Classic 2019",
-                 "test-objectteams-classic-38" = "Classic 2020",
-                 "test-objectteams-indy-25" = "Dispatch Plans",
-                 "test-objectteams-indy-38" = "Polymorphic Dispatch Plans")
-
-name_map2 <- list("benchmark.BankBenchmark" = "Dynamic Benchmark",
-                  "benchmark.BankBenchmark2" = "Static Benchmark")
-
 stats <- filter(stats, Approach != "Classic 2020")
+stats <- filter(stats, Benchmark != " Contexts Benchmark")
 
 print(plot_data(stats))
 
