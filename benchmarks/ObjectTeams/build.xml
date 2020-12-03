@@ -33,6 +33,9 @@
     <sleep seconds="1" />
     <jar jarfile="benchmarks-${apr}-${ver}.jar" basedir="build/classes">
       <zipfileset src="build/deps.jar" excludes="META-INF/*.SF,META-INF/*.DSA,META-INF/*.RSA" />
+      <fileset dir="${lib}/cp">
+        <include name="log4j.properties" />
+      </fileset>
       <manifest>
         <attribute name="Main-Class" value="benchmark.Harness" />
       </manifest>
