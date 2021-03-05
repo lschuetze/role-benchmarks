@@ -13,7 +13,7 @@ library("ggrepel", character.only=TRUE)
 # avoid scientific notation for numbers, it's more readable to me
 options(scipen=999)
 
-folder <- "/Users/lschuetze/Development/repos/role-benchmarks/data"
+folder <- "/Users/lschuetze/Development/repos/role-benchmarks/data/"
 fileName <- "benchmark.data"
 load_all_data <- function (folder, fileName) {
     result <- NULL
@@ -154,16 +154,16 @@ data <- droplevels(
          select = c(Value, Unit, Benchmark, VM, Approach, Iteration, Var, version, sha)))
 
 # separate the baseline from the rest
-df_baseline <- data %>% filter(Approach == "test-objectteams-classic-38")
+data_classic38 <- data %>% filter(Approach == "test-objectteams-classic-38")
 
 # calculate the mean of the baseline value for each Benchmark-Var
-df_baseline <- df_baseline %>% 
-  group_by(Benchmark, Var) %>% 
-  summarise(Value_baseline = mean(Value)) %>% 
+df_baseline <- data_classic38 %>% 
+  group_by(Benchmark, Var) %>%
+  summarise(Value_baseline = mean(Value)) %>%
   ungroup()
 
 norm <- data %>% 
-  left_join(df_baseline, by = c("Benchmark", "Var")) %>% 
+  left_join(df_baseline, by = c("Benchmark", "Var")) %>%
   mutate(RuntimeRatio = Value / Value_baseline) %>%
   mutate(RuntimeRatio2 = Value_baseline / Value) %>%
   select(-Value_baseline)
@@ -195,13 +195,17 @@ stats <- norm %>%
   summarise(
     Time.ms = mean(Value),
     sd      = sd(Value),
-    RuntimeFactor = mean(RuntimeRatio),
-    RuntimeFactor2 = mean(RuntimeRatio2),
+    RuntimeFactor = prod(RuntimeRatio)^(1/length(RuntimeRatio)),
+    RuntimeFactorMean = mean(RuntimeRatio),
+    RuntimeFactor2 = prod(RuntimeRatio2)^(1/length(RuntimeRatio2)) ,
+    RuntimeFactor2Mean = mean(RuntimeRatio2),
     RR.sd         = sd(RuntimeRatio),
     RR.median     = median(RuntimeRatio))
 
 stats <- filter(stats, Approach != "Classic 2020")
 stats <- filter(stats, Benchmark != " Contexts Benchmark")
+
+report <- stats %>% filter(Approach == "Polymorphic Dispatch Plans")
 
 print(plot_data(stats))
 
