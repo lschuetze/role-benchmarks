@@ -3,14 +3,21 @@ package benchmark.bank;
 import java.util.List;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public team class Bank {
+
+    static Logger logger = LoggerFactory.getLogger(Bank.class);
+
     private List<Customer> customers;
     private List<Account> checkingsAccounts;
     private List<Account> savingsAccounts;
 
-    precedence SavingsAccount,CheckingsAccount;
+    precedence CheckingsAccount,SavingsAccount;
 
     public class Customer playedBy Person {
+
         private List<Account> accounts;
 
         public void addAccount(Account account) {
@@ -56,45 +63,82 @@ public team class Bank {
 
         // private static final float LIMIT = 100.0f;
 
+        public void before() {
+            logger.info("before CheckingsAccount decrease");
+        }
+
+        public void before2() {
+            logger.info("before CheckingsAccount increase");
+        }
+
         callin float limited(float amount) {
-            // System.out.println("CheckingsAccount replace BEGIN");
+            logger.info("replace CheckingsAccount decrease BEGIN");
             float f = base.limited(amount);
-            // System.out.println("CheckingsAccount replace END");
+            logger.info("replace CheckingsAccount decrease END");
+            return f;
+        }
+
+        callin float replace(float amount) {
+            logger.info("replace CheckingsAccount increase BEGIN");
+            float f = base.replace(amount);
+            logger.info("replace CheckingsAccount increase END");
             return f;
         }
 
         public void after() {
-            // System.out.println("after checkingsaccount decrease");
+            logger.info("after CheckingsAccount decrease");
         }
 
-        public void before() {
-            //System.out.println("before CheckingsAccount decrease");
-        }
+        void before() <- before float decrease(float amount);
 
-        //void after() <- after void decrease(float amount);
-
-        //void before() <- before float decrease(float amount);
+        // void before2() <- before float increase(float amount);
 
         float limited(float amount) <- replace float decrease(float amount);
 
-        }
+        // float replace(float amount) <- replace float increase(float amount);
+
+        void after() <- after float decrease(float amount);
+    }
 
     public class SavingsAccount playedBy Account {
 
-            private static final float FEE = 1.1f;
+        private static final float FEE = 1.1f;
 
-            callin float withFee(float amount) {
-                //System.out.println("SavingsAccount replace BEGIN");
-                float f = base.withFee(amount * FEE);
-                //System.out.println("SavingsAccount replace END");
-                return f;
-            }
-
-            public void before() {
-                //System.out.println("before SavingsAccount decrease");
-            }
-
-            void before() <- before float decrease(float amount);
-            float withFee(float amount) <- replace float decrease(float amount);
+        public void before() {
+            logger.info("before SavingsAccount decrease");
         }
+
+        public void before2() {
+            logger.info("before SavingsAccount increase");
+        }
+
+        callin float withFee(float amount) {
+            logger.info("replace SavingsAccount decrease BEGIN");
+            float f = base.withFee(amount * FEE);
+            logger.info("replace SavingsAccount decrease END");
+            return f;
+        }
+
+        callin float replace(float amount) {
+            logger.info("replace SavingsAccount increase BEGIN");
+            float f = base.replace(amount);
+            logger.info("replace SavingsAccount increase END");
+            return f;
+        }
+
+        public void after() {
+            logger.info("after SavingsAccount decrease");
+        }
+
+        void before() <- before float decrease(float amount);
+
+        // void before2() <- before float increase(float amount);
+
+        float withFee(float amount) <- replace float decrease(float amount);
+
+        // float replace(float amount) <- replace float increase(float amount);
+
+        void after() <- after float decrease(float amount);
+
+    }
 }

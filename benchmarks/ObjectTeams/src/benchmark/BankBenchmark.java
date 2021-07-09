@@ -5,7 +5,12 @@ import benchmark.bank.Bank;
 import benchmark.bank.Person;
 import benchmark.bank.CallinTransaction;
 
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+
 public class BankBenchmark extends Benchmark {
+
+    // static Logger logger = LoggerFactory.getLogger(BankBenchmark.class);
 
     private Bank bank;
 
@@ -37,8 +42,6 @@ public class BankBenchmark extends Benchmark {
         for (int i = 0; i < innerIterations; ++i) {
             Person p = new Person();
             bank.addCustomer(p);
-
-            //System.out.println("Setup Account " + i);
 
             Account sa = new Account(i, 1000.0f);
             Account ca = new Account(i, 1000.0f);
