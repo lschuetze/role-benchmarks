@@ -22,6 +22,9 @@ then
 elif [ "$1" = "4" ]
 then
 	BENCHMARK="benchmark.TeamBenchmark4"
+elif [ "$1" = "5" ]
+then
+	BENCHMARK="benchmark.TeamBenchmark5"
 fi
 
 JFR="-XX:StartFlightRecording=filename=bench-classic2.jfr,settings=profile"
