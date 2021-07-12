@@ -3,6 +3,7 @@ benchmarks/ObjectTeams/build
 benchmarks.jar
 benchmarks/ObjectTeams/benchmarks-*.jar
 benchmark.data
+/data/*/.info
 
 # Created by https://www.toptal.com/developers/gitignore/api/java
 # Edit at https://www.toptal.com/developers/gitignore?templates=java
