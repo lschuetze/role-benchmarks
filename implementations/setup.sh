@@ -4,7 +4,7 @@ SCRIPT_PATH=`dirname $0`
 source $SCRIPT_PATH/script.inc
 
 echo "Start setup ..."
-Check for requirements
+#Check for requirements
 check_for_tools ant pip3 python3
 check_for_rebench
 
