@@ -1,6 +1,7 @@
 package test;
 
 import test.BaseType;
+import test.BeforeTeam;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -26,12 +27,12 @@ import org.openjdk.jmh.annotations.Warmup;
 @Measurement(iterations = 10)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class ManyCallinsBenchmark {
+public class ManyBeforeCallinsBenchmark {
 
-    @Param({"4","8","16","32","64","128"})
+    @Param({"1"})
     public int cnt;
 
-    private List<BaseCallTeam> myTeams;
+    private List<BeforeTeam> myTeams;
     private BaseType b;   
     private Object arg; 
 
@@ -39,7 +40,7 @@ public class ManyCallinsBenchmark {
     public void setupTeam() {
         myTeams = new ArrayList<>(cnt);
         for(int i = 0; i < cnt; i++) {
-            BaseCallTeam myTeam = new BaseCallTeam();
+            BeforeTeam myTeam = new BeforeTeam();
             myTeam.activate();
             myTeams.add(myTeam);
         }
