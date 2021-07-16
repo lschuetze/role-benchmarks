@@ -1,6 +1,6 @@
 package test;
 
-public team class DynamicTeam {
+public team class DynamicTeam3 {
     public class DynamicRole playedBy BaseType {
 
         Object beforeRoleMethod(Object arg) {

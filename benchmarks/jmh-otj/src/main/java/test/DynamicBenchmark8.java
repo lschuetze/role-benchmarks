@@ -1,7 +1,7 @@
 package test;
 
 import test.BaseType;
-import test.DynamicTeam;
+import test.DynamicTeam1;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,15 +29,15 @@ public class DynamicBenchmark8 {
 
     final int N = 4;
 
-    private DynamicTeam[] teams;
+    private DynamicTeam1[] teams;
     private BaseType b;   
     private Object arg; 
 
     @Setup(Level.Trial)
     public void setupTeam() {
-        teams = new DynamicTeam[N];
+        teams = new DynamicTeam1[N];
         for(int i = 0; i < N; i++) {
-            teams[i] = new DynamicTeam();
+            teams[i] = new DynamicTeam1();
         }
     }
 
