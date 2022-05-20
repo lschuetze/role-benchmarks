@@ -96,7 +96,7 @@ public class DynamicBenchmark {
     @Benchmark
     public void bench(Blackhole bh, DynamicState state) {
         for(int i = 0; i < state.iterations; i++) {
-            state.doActivate(state.next);
+            state.doActivate(state.next());
             bh.consume(state.base.retParam(state.value));
         }
     }

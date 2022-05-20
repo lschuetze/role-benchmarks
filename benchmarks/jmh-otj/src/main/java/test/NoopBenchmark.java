@@ -27,7 +27,7 @@ public class NoopBenchmark {
 
     private BaseCallTeam myTeam;
     private BaseType b;   
-    private Object arg; 
+    private int arg; 
 
     @Setup(Level.Trial)
     public void setupTeam() {
@@ -39,11 +39,11 @@ public class NoopBenchmark {
     @Setup(Level.Iteration)
     public void setup() {
         b = new BaseType();
-        arg = new Object();
+        arg = 0;
     }
 
     @Benchmark
-    public Object methodCall() {
+    public int methodCall() {
         return b.retParam(arg);
     }
 
