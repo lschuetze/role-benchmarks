@@ -3,23 +3,25 @@ package test;
 public team class DynamicTeam1 {
     public class DynamicRole playedBy BaseType {
 
-        Object beforeRoleMethod(Object arg) {
-            Object result = new Object();
-            return result;
+        private int beforeValue = 0;
+        private int afterValue = 0;
+
+        void beforeRoleMethod(int arg) {
+            beforeValue += arg;
         }
 
-        Object afterRoleMethod(Object arg) {
-            Object result = new Object();
-            return result;
+        void afterRoleMethod(int arg) {
+            afterValue += arg;
         }
 
-        callin Object replaceRoleMethod(Object arg) {
-            Object result = new Object();
-            return base.replaceRoleMethod(result);
+        callin int replaceRoleMethod(int arg) {
+            int value = arg + 1;
+            int result = base.replaceRoleMethod(value);
+            return result;
         }
 
         beforeRoleMethod <- before retParam;
         replaceRoleMethod <- replace retParam;
         afterRoleMethod <- after retParam;
-    } 
+    }
 }

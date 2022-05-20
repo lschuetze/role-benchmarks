@@ -1,8 +1,11 @@
 package test;
 
 public class BaseType {
-    
-    public Object retParam(Object param) {
-        return param;
+
+    private int value = 0;
+
+    public int retParam(int param) {
+        value += param;
+        return value;
     }
 }

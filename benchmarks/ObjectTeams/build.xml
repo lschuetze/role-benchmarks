@@ -4,6 +4,9 @@
   <fail message="The ObjectTeams libraries path need to be set. Use -Dlib=" unless="lib" />
   <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
 
+  <property environment="env"/>
+  <echo message="JAVA_HOME is set to = ${env.JAVA_HOME}" />
+
   <path id="project.classpath">
     <fileset dir="${lib}/">
       <include name="otre_min.jar" />
@@ -16,7 +19,7 @@
   <target name="compile" depends="clean">
     <mkdir dir="build" />
     <mkdir dir="build/classes" />
-    <javac srcdir="src" destdir="build/classes" source="${source}" target="${target}" debug="true"
+    <javac srcdir="src" destdir="build/classes" target="${target}" source="${source}" debug="true"
            includeantruntime="false">
       <classpath refid="project.classpath" />
       <compilerarg value="-ot.weaving:otdre" />

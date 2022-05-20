@@ -17,6 +17,10 @@ then
 else
     echo "Java version was neither 8, 9, 11 or 14"
 fi
+
+echo "Set Java version to ${1}"
+echo "JAVA_HOME = ${JAVA_HOME}"
+
 # Decide which ObjectTeams implementation to build with
 echo "Build ObjectTeams Benchmarks"
 pushd $SCRIPT_PATH/../benchmarks/ObjectTeams
@@ -42,9 +46,9 @@ then
         echo "ObjectTeams Indy 3.8.0"
         ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy
     fi
-elif [ "$2" = "graceful-indy" ]
+elif [ "$2" = "grace-indy" ]
 then
     echo "ObjectTeams Graceful Indy 3.8.0"
-    ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/graceful-indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=grace-indy
+    ant jar -lib $SCRIPT_PATH/objectteams/graceful-indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/graceful-indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=grace-indy
 fi
 

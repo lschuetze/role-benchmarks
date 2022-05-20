@@ -7,8 +7,8 @@ pushd `dirname $0` > /dev/null
 SCRIPT_PATH=`pwd`
 popd > /dev/null
 
-/bin/bash $SCRIPT_PATH/build-otj.sh 14 graceful-indy 3.8.0
-/bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0
+/bin/bash $SCRIPT_PATH/build-otj.sh 14 grace-indy 3.8.0
+#/bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0
 
 # HOW TO RUN: ./test.sh <benchmark> <outer iterations> <inner iterations> <w/o degradation>
 if [ "$1" = "1" ]
@@ -26,6 +26,9 @@ then
 elif [ "$1" = "5" ]
 then
 	BENCHMARK="benchmark.TeamBenchmark5"
+elif [ "$1" = "6" ]
+then
+     BENCHMARK="benchmark.BankBenchmarkVerbose"
 fi
 
 if [ "$4" = "1" ]
@@ -46,6 +49,8 @@ JFR="-XX:StartFlightRecording=filename=bench-indy3.jfr,settings=${SCRIPT_PATH}/e
 
 #~/Downloads/openjdk-15-ea+33_osx-x64_bin/jdk-15.jdk/Contents/Home/bin/java
 
-WEAV="/Users/lschuetze/Development/repos/role-benchmarks/benchmarks/ObjectTeams/weavables.txt"
+WEAV="/Users/lschuetze/git/role-benchmarks/benchmarks/ObjectTeams/weavables.txt"
+DEBUG="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005"
+DEBUG=""
 
-/bin/bash $SCRIPT_PATH/java14.sh -ea -Dot.weavable=$WEAV $NO_DEG $REL_THR -server -XX:-TieredCompilation -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:./objectteams/indy-3.8.0/otre_min.jar -javaagent:./objectteams/graceful-indy-3.8.0/otredyn_agent.jar -jar ../benchmarks/ObjectTeams/benchmarks-grace-indy-3.8.0.jar $BENCHMARK ${2} ${3}
+/bin/bash $SCRIPT_PATH/java14.sh $DEBUG -ea -Dot.weavable=$WEAV $NO_DEG $REL_THR -server -XX:-TieredCompilation -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:./objectteams/graceful-indy-3.8.0/otre_min.jar -javaagent:./objectteams/graceful-indy-3.8.0/otredyn_agent.jar -jar ../benchmarks/ObjectTeams/benchmarks-grace-indy-3.8.0.jar $BENCHMARK ${2} ${3}
