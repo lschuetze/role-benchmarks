@@ -27,7 +27,7 @@ public class ActiveCallinBenchmark {
 
     private BaseCallTeam myTeam;
     private BaseType b;   
-    private Object arg; 
+    private int arg; 
 
     @Setup(Level.Trial)
     public void setupTeam() {
@@ -38,7 +38,7 @@ public class ActiveCallinBenchmark {
     @Setup(Level.Iteration)
     public void setup() {
         b = new BaseType();
-        arg = new Object();
+        arg = 0;
     }
 
     @TearDown(Level.Trial)
