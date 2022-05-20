@@ -60,7 +60,7 @@ public class ManyAfterCallinsBenchmark {
     }
 
     @Benchmark
-    public Object methodCall() {
+    public int methodCall() {
         return b.retParam(arg);
     }
 

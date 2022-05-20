@@ -33,7 +33,7 @@ public class ManyReplaceCallinsBenchmark {
 
     private List<BaseCallTeam> myTeams;
     private BaseType b;   
-    private Object arg; 
+    private int arg; 
 
     @Setup(Level.Trial)
     public void setupTeam() {
@@ -48,7 +48,7 @@ public class ManyReplaceCallinsBenchmark {
     @Setup(Level.Iteration)
     public void setup() {
         b = new BaseType();
-        arg = new Object();
+        arg = 0;
     }
 
     @TearDown(Level.Trial)
@@ -59,8 +59,7 @@ public class ManyReplaceCallinsBenchmark {
     }
 
     @Benchmark
-    public Object methodCall() {
+    public int methodCall() {
         return b.retParam(arg);
     }
-
 }
