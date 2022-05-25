@@ -2,7 +2,7 @@
 
 USER_BASE_PATH=`python3 -m site --user-base`
 
-$USER_BASE_PATH/bin/rebench -c --scheduler=random --without-nice bench.conf e:test-jmh-dynamic #all
+$USER_BASE_PATH/bin/rebench --scheduler=random --without-nice -c bench.conf
 
 DATA_ROOT=`pwd`/data
 
