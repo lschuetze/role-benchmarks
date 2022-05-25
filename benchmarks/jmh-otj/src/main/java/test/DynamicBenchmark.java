@@ -92,7 +92,7 @@ public class DynamicBenchmark {
             teams[3].deactivate();
 
             final int[] candidates = teamStates[next];
-            for(int i = 4; i >= 0; i--) {
+            for(int i = 3; i >= 0; i--) {
                 if(candidates[i] == -1) continue;
                 teams[candidates[i]].activate();
             }
