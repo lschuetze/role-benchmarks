@@ -67,12 +67,22 @@ public class DynamicBenchmark {
         }
 
         public static int[][] teamStates = {
-            {0,2,3}, {0,3,1}, {0,3,2},
-            {1,0,2}, {1,0,3}, {1,2,0},
-            {1,2,3}, {1,3,0}, {1,3,2},
-            {2,0,1}, {2,0,3}, {2,1,0},
-            {2,1,3}, {2,3,0}, {2,3,1},
-            {3,0,1}
+            { 0,-1,-1,-1},
+            { 1, 0,-1,-1},
+            { 2, 1, 0,-1},
+            { 3, 2, 1, 0},
+            { 3, 2, 1,-1},
+            { 3, 2,-1,-1},
+            { 2,-1,-1,-1},
+            { 1,-1,-1,-1},
+            {-1,-1,-1,-1},
+            { 3,-1,-1,-1},
+            { 0, 3,-1,-1},
+            { 1, 0, 3,-1},
+            { 2, 0, 3,-1},
+            { 1, 2, 3,-1},
+            { 0, 1, 2, 3},
+            {-1, 0, 1, 2}
         };
 
         public void doActivate(int next) {
@@ -82,22 +92,17 @@ public class DynamicBenchmark {
             teams[3].deactivate();
 
             final int[] candidates = teamStates[next];
-            for(int i = candidates.length; i >= 0; i--) {
-                teams[i].activate();
+            for(int i = 4; i >= 0; i--) {
+                if(candidates[i] == -1) continue;
+                teams[candidates[i]].activate();
             }
-        }
-
-        public int next() {
-            int result = nextIndex++;
-            nextIndex = nextIndex % iterations;
-            return result;
         }
     }
 
     @Benchmark
     public void bench(Blackhole bh, DynamicState state) {
         for(int i = 0; i < state.iterations; i++) {
-            state.doActivate(state.next());
+            state.doActivate(i);
             bh.consume(state.base.retParam(state.value));
         }
     }
