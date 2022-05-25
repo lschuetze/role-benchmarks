@@ -44,6 +44,7 @@ public class DynamicBenchmark {
 
         @Setup(Level.Trial)
         public void setupTeam() {
+            teams = new ITeam[4];
             teams[0] = new DynamicTeam1();
             teams[1] = new DynamicTeam2();
             teams[2] = new DynamicTeam3();
