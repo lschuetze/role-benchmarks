@@ -39,7 +39,7 @@ public class DynamicBenchmark {
         public int value;
         public int nextIndex;
 
-        @Param({"2", "4", "8", "16"})
+        @Param({"1"})
         public int iterations;
 
         @Setup(Level.Trial)
