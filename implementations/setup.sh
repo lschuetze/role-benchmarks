@@ -35,15 +35,16 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     # /bin/bash $SCRIPT_PATH/build-otj.sh 1.8 classic 2.5.0
     # /bin/bash $SCRIPT_PATH/build-otj.sh 9 indy 2.5.0
     # Build for OpenJDK 14
-    /bin/bash $SCRIPT_PATH/build-otj.sh 14 classic 3.8.0
-    /bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0
-    /bin/bash $SCRIPT_PATH/build-otj.sh 14 graceful-indy 3.8.0
+    #/bin/bash $SCRIPT_PATH/build-otj.sh 14 classic 3.8.0
+    /bin/bash $SCRIPT_PATH/build-otj.sh 17 classic 3.31.0
+    #/bin/bash $SCRIPT_PATH/build-otj.sh 14 indy 3.8.0
+    #/bin/bash $SCRIPT_PATH/build-otj.sh 14 graceful-indy 3.8.0
     # Build for GraalCE 11
     #/bin/bash $SCRIPT_PATH/build-otj.sh 11 classic 3.8.0
     #/bin/bash $SCRIPT_PATH/build-otj.sh 11 indy 3.8.0
-    /bin/bash $SCRIPT_PATH/build-jmh.sh 14 classic
-    /bin/bash $SCRIPT_PATH/build-jmh.sh 14 indy
-    /bin/bash $SCRIPT_PATH/build-jmh.sh 14 graceful
+    #/bin/bash $SCRIPT_PATH/build-jmh.sh 14 classic
+    #/bin/bash $SCRIPT_PATH/build-jmh.sh 14 indy
+    #/bin/bash $SCRIPT_PATH/build-jmh.sh 14 graceful
 else
     echo "Aborting ..."
 fi

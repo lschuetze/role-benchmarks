@@ -14,6 +14,9 @@ then
 elif [ "$1" = "14" ]
 then
     export JAVA_HOME=$JAVA14_HOME
+elif [ "$1" = "17" ]
+then
+    export JAVA_HOME=$JAVA17_HOME
 else
     echo "Java version was neither 8, 9, 11 or 14"
 fi
@@ -34,6 +37,10 @@ then
     then
         echo "ObjectTeams Classic 3.8.0"
         ant jar -lib $SCRIPT_PATH/objectteams/classic-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=classic
+    elif [ "$3" = "3.31.0" ]
+    then
+        echo "ObjectTeams Classic 3.31.0"
+        ant jar -lib $SCRIPT_PATH/objectteams/classic-3.31.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.31.0 -Dsource=${1} -Dtarget=${1} -Dver=3.31.0 -Dapr=classic
     fi
 elif [ "$2" = "indy" ]
 then

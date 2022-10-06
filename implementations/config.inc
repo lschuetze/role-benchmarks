@@ -18,6 +18,7 @@ then
     export JAVA9_HOME=`/usr/libexec/java_home -v 9`
     export JAVA11_HOME=`/usr/libexec/java_home -v 11`
     export JAVA14_HOME=`/usr/libexec/java_home -v 14`
+    export JAVA14_HOME=`/usr/libexec/java_home -v 17`
 elif [ -x /usr/sbin/update-java-alternatives ]
 then
     # Java 8
@@ -59,6 +60,16 @@ then
         fi
     else
         export JAVA14_HOME=${jvm_info[2]}
+    fi
+    # Java 17
+    jvm_info=(`/usr/sbin/update-java-alternatives -l | grep 'java-17\|java-1.17' || true`)
+    if [[ -z $jvm_info ]]; then
+        if [ -z "$JAVA17_HOME" ]
+        then
+            echo "Java 17 installation not found";
+        fi
+    else
+        export JAVA17_HOME=${jvm_info[2]}
     fi
 else
     echo "Java directories could not be guessed, please check config.inc"
