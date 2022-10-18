@@ -16,6 +16,9 @@ WEAV=$SRC_PATH/weavables.txt
 #DEBUG="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005"
 DEBUG=""
 
+rm $SRC_PATH/benchmarks-classic-3.31.0.jar
+rm -rf $SRC_PATH/class-files
+
 # Build benchmarks-classic-3.31.0.jar
 /bin/bash $SCRIPT_PATH/build-otj.sh 17 classic 3.31.0
 
