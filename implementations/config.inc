@@ -18,7 +18,7 @@ then
     export JAVA9_HOME=`/usr/libexec/java_home -v 9`
     export JAVA11_HOME=`/usr/libexec/java_home -v 11`
     export JAVA14_HOME=`/usr/libexec/java_home -v 14`
-    export JAVA14_HOME=`/usr/libexec/java_home -v 17`
+    export JAVA17_HOME=`/usr/libexec/java_home -v 17`
 elif [ -x /usr/sbin/update-java-alternatives ]
 then
     # Java 8

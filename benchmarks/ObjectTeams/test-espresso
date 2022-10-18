@@ -1,0 +1,36 @@
+#!/bin/bash
+# make script fail on first error
+set -e
+# Capture SRC path
+pushd `dirname $0` > /dev/null
+SRC_PATH=`pwd`
+popd > /dev/null
+# make SCRIPT_PATH absolute
+cd ../../implementations
+pushd `dirname $0` > /dev/null
+SCRIPT_PATH=`pwd`
+popd > /dev/null
+source $SCRIPT_PATH/config.inc
+
+WEAV="/Users/lschuetze/git/role-benchmarks/benchmarks/ObjectTeams/weavables.txt"
+#DEBUG="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005"
+DEBUG=""
+
+# Build benchmarks-classic-3.31.0.jar
+/bin/bash $SCRIPT_PATH/build-otj.sh 17 classic 3.31.0
+
+# Create a dump file of rewritten classes
+/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
+
+# Merge rewritten classes and create a new JAR that contains these classes
+unzip $SRC_PATH/benchmarks-classic-3.31.0.jar -d $SRC_PATH/class-files
+
+cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
+cp $SCRIPT_PATH/otdyn/benchmark.bank.Bank.class $SRC_PATH/class-files/benchmark/bank/Bank.class
+rm -rf $SCRIPT_PATH/otdyn
+
+jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files $SRC_PATH
+
+# Switch to Espresso and run the tweaked JAR
+cd $ESPRESSO_HOME
+mx espresso -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
