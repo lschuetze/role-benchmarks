@@ -12,7 +12,7 @@ SCRIPT_PATH=`pwd`
 popd > /dev/null
 source $SCRIPT_PATH/config.inc
 
-WEAV="/Users/lschuetze/git/role-benchmarks/benchmarks/ObjectTeams/weavables.txt"
+WEAV=$SRC_PATH/weavables.txt
 #DEBUG="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005"
 DEBUG=""
 
