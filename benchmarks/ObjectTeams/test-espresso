@@ -40,4 +40,4 @@ jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/
 
 # Switch to Espresso and run the tweaked JAR
 cd $ESPRESSO_HOME
-mx espresso -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.-patchedjar benchmark.BankBenchmark 1 1
+mx espresso -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -jar $SRC_PATH/benchmarks-classic-3.31.0-patched.jar benchmark.BankBenchmark 1 1
