@@ -34,6 +34,7 @@ unzip $SRC_PATH/benchmarks-classic-3.31.0.jar -d $SRC_PATH/class-files
 
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Bank.class $SRC_PATH/class-files/benchmark/bank/Bank.class
+cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmark/bank/Person.class
 rm -rf $SCRIPT_PATH/otdyn
 
 jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
