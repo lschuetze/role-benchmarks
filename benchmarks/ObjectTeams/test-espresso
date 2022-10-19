@@ -16,7 +16,7 @@ WEAV=$SRC_PATH/weavables.txt
 if [ ! -z "$1" ]; then
 	case $1 in
 	-d)
-		DEBUG="agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=y"
+		DEBUG="-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=y"
 		;;
 	-dvm)
 		DEBUGVM="--vm.agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=y"
