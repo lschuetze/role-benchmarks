@@ -13,8 +13,16 @@ popd > /dev/null
 source $SCRIPT_PATH/config.inc
 
 WEAV=$SRC_PATH/weavables.txt
-#DEBUG="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005"
-DEBUG=""
+if [ ! -z "$1" ]; then
+	case $1 in
+	-d)
+		DEBUG="agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=y"
+		;;
+	-dvm)
+		DEBUGVM="--vm.agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=y"
+		;;
+	esac
+fi
 
 if [ -f $SRC_PATH/benchmarks-classic-3.31.0.jar ]; then
 	rm $SRC_PATH/benchmarks-classic-3.31.0.jar
@@ -41,4 +49,4 @@ jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/
 
 # Switch to Espresso and run the tweaked JAR
 cd $ESPRESSO_HOME
-mx espresso -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -jar $SRC_PATH/benchmarks-classic-3.31.0-patched.jar benchmark.BankBenchmark 1 1
+mx espresso $DEBUG $DEBUGVM -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0-patched.jar benchmark.BankBenchmark 1 1
