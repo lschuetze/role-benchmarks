@@ -3,11 +3,6 @@ package benchmark.bank;
 import java.util.List;
 import java.util.LinkedList;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.NoSuchMethodException;
-import java.lang.IllegalAccessException;
-
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
@@ -20,17 +15,6 @@ public team class Bank {
     private List<Account> savingsAccounts;
 
     precedence CheckingsAccount,SavingsAccount;
-
-    public Bank() {
-        // We cannot call this._OT$implicitlyActivate() directly
-        // due to "Illegal identifier _OT$implicitlyActivate (OTJLD A.0.3)"
-        try {
-            Method m = Bank.class.getMethod("_OT$implicitlyActivate", null);
-            m.invoke(this);
-        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-
-        }
-    }
 
     public class Customer playedBy Person {
 

@@ -38,10 +38,10 @@ public class BankBenchmark extends Benchmark {
     }
 
     public boolean setUp(final int innerIterations) {
+        ClassRepository.getInstance();
+        
         bank = new Bank();
         bank.activate();
-
-        ClassRepository.getInstance();
 
         for (int i = 0; i < innerIterations; ++i) {
             Person p = new Person();
