@@ -5,6 +5,8 @@ import benchmark.bank.Bank;
 import benchmark.bank.Person;
 import benchmark.bank.CallinTransaction;
 
+import org.eclipse.objectteams.otredyn.bytecode.ClassRepository;
+
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
@@ -38,6 +40,8 @@ public class BankBenchmark extends Benchmark {
     public boolean setUp(final int innerIterations) {
         bank = new Bank();
         bank.activate();
+
+        ClassRepository.getInstance();
 
         for (int i = 0; i < innerIterations; ++i) {
             Person p = new Person();

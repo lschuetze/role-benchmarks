@@ -25,7 +25,7 @@ public team class Bank {
         // We cannot call this._OT$implicitlyActivate() directly
         // due to "Illegal identifier _OT$implicitlyActivate (OTJLD A.0.3)"
         try {
-            Method m = Bank.class.getDeclaredMethod("_OT$implicitlyActivate");
+            Method m = Bank.class.getMethod("_OT$implicitlyActivate", null);
             m.invoke(this);
         } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
 
