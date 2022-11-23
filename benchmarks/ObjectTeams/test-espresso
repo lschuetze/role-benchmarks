@@ -48,6 +48,7 @@ jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/
 
 # Switch to Espresso and run the tweaked JAR
 /bin/bash $SCRIPT_PATH/espresso.sh $DEBUG $DEBUGVM \
-	-cp $SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar:$SRC_PATH/benchmarks-classic-3.31.0-patched.jar \
+	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar \
+	-cp $SRC_PATH/benchmarks-classic-3.31.0-patched.jar \
 	benchmark.Harness benchmark.BankBenchmark 1 1
 
