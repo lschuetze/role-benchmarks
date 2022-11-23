@@ -47,5 +47,7 @@ rm -rf $SCRIPT_PATH/otdyn
 jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
 
 # Switch to Espresso and run the tweaked JAR
-cd $ESPRESSO_HOME
-mx espresso $DEBUG $DEBUGVM -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0-patched.jar benchmark.BankBenchmark 1 1
+/bin/bash $SCRIPT_PATH/espresso.sh $DEBUG $DEBUGVM \
+	-cp $SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar:$SRC_PATH/benchmarks-classic-3.31.0-patched.jar \
+	benchmark.Harness benchmark.BankBenchmark 1 1
+
