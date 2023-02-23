@@ -38,13 +38,13 @@ fi
 /bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
 
 # Merge rewritten base classes and create a new JAR that contains these classes
-unzip $SRC_PATH/benchmarks-classic-3.31.0.jar -d $SRC_PATH/class-files
+unzip -qq $SRC_PATH/benchmarks-classic-3.31.0.jar -d $SRC_PATH/class-files
 
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmark/bank/Person.class
 rm -rf $SCRIPT_PATH/otdyn
 
-jar -cvfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
+jar -cfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
 
 # Switch to Espresso and run the tweaked JAR
 /bin/bash $SCRIPT_PATH/espresso.sh $DEBUG $DEBUGVM \
