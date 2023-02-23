@@ -41,6 +41,10 @@ then
     then
         echo "ObjectTeams Classic 3.31.0"
         ant jar -lib $SCRIPT_PATH/objectteams/classic-3.31.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.31.0 -Dsource=${1} -Dtarget=${1} -Dver=3.31.0 -Dapr=classic
+    elif [ "$3" = "3.31.0b" ]
+    then
+        echo "ObjectTeams Classic 3.31.0b"
+        ant jar -lib $SCRIPT_PATH/objectteams/classic-3.31.0b/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/classic-3.31.0b -Dsource=${1} -Dtarget=${1} -Dver=3.31.0b -Dapr=classic
     fi
 elif [ "$2" = "indy" ]
 then
