@@ -21,6 +21,9 @@ if [ ! -z "$1" ]; then
 	-dvm)
 		DEBUGVM="--vm.agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=y"
 		;;
+	-igv)
+		IGV="--vm.Dgraal.Dump=:1 --vm.Dgraal.PrintGraph=Network"
+		;;
 	esac
 fi
 
@@ -47,7 +50,7 @@ rm -rf $SCRIPT_PATH/otdyn
 jar -cfm $SRC_PATH/benchmarks-classic-3.31.0-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
 
 # Switch to Espresso and run the tweaked JAR
-/bin/bash $SCRIPT_PATH/espresso.sh $DEBUG $DEBUGVM \
+/bin/bash $SCRIPT_PATH/espresso.sh $DEBUG $DEBUGVM $IGV \
 	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar \
 	-cp $SRC_PATH/benchmarks-classic-3.31.0-patched.jar \
 	benchmark.Harness benchmark.BankBenchmark 1 1
