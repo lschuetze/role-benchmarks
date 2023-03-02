@@ -24,22 +24,22 @@ if [ ! -z "$1" ]; then
 	esac
 fi
 
-if [ -f $SRC_PATH/benchmarks-classic-3.31.0b.jar ]; then
-	rm $SRC_PATH/benchmarks-classic-3.31.0b.jar
+if [ -f $SRC_PATH/benchmarks-classic-3.31.0.jar ]; then
+	rm $SRC_PATH/benchmarks-classic-3.31.0.jar
 fi
 if [ -d $SRC_PATH/class-files ]; then
 	rm -rf $SRC_PATH/class-files
 fi
 
 # Build benchmarks-classic-3.31.0.jar
-/bin/bash $SCRIPT_PATH/build-otj.sh 17 classic 3.31.0b
+/bin/bash $SCRIPT_PATH/build-otj.sh 17 classic 3.31.0
 
 # Merge rewritten base classes and create a new JAR that contains these classes
-unzip $SRC_PATH/benchmarks-classic-3.31.0b.jar -d $SRC_PATH/class-files
+unzip $SRC_PATH/benchmarks-classic-3.31.0.jar -d $SRC_PATH/class-files
 
 # Create a dump file of rewritten classes
-/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0b/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0b/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0b.jar benchmark.BankBenchmark 1 1
-#/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0b/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0b/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0b.jar benchmark.BankBenchmark 1 1
+/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
+#/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
 
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmark/bank/Person.class
