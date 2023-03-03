@@ -19,7 +19,7 @@ WEAV=$SRC_PATH/weavables.txt
 VERSION="3.31.0b"
 APPROACH="classic"
 MAIN_CLASS="benchmark.Harness"
-BENCHMARK="benchmark.Harness"
+BENCHMARK="benchmark.BankBenchmark"
 
 #######################################################################
 # Parse arguments, prepare Java command and execute
