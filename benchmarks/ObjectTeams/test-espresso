@@ -70,7 +70,7 @@ fi
 unzip -qq $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar -d $SRC_PATH/class-files
 
 # Create a dump file of rewritten classes
-/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G -Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otredyn_agent.jar -jar $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar $MAIN_CLASS $BENCHMARK 1 1
+/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G -Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otredyn_agent.jar -jar $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar $BENCHMARK 1 1
 
 # Copy dumped files
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
@@ -83,4 +83,4 @@ jar -cfm $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar $SRC_PATH/class-fil
 /bin/bash $SCRIPT_PATH/espresso.sh $JAVA_ARGS \
 	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar \
 	-cp $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar \
-	$MAIN_CLASS $BENCHMARK $PROGRAM_ARGS
+	$BENCHMARK $PROGRAM_ARGS
