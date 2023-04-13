@@ -80,7 +80,7 @@ cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmar
 jar -cfm $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
 
 # Switch to Espresso and run the tweaked JAR
-/bin/bash $SCRIPT_PATH/espresso.sh $JAVA_ARGS \
+/bin/bash $SCRIPT_PATH/espresso.sh  $JAVA_ARGS \
 	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar \
 	-cp $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar \
 	$MAIN_CLASS $BENCHMARK $PROGRAM_ARGS
