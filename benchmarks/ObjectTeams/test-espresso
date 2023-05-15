@@ -35,7 +35,9 @@ do
 		-debugvm)
 			JAVA_ARGS+=("--vm.agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=y") ;;
 		-dump)
-			JAVA_ARGS+=("-Dgraal.Dump=Truffle:1") ;;
+			JAVA_ARGS+=("-Dgraal.Dump=Truffle:4") ;;
+		-printcompile)
+			JAVA_ARGS+=("-Dgraal.PrintCompilation=true") ;;
 		-trace)
 			JAVA_ARGS+=("-Dpolyglot.engine.AllowExperimentalOptions=true" "-Dpolyglot.engine.BackgroundCompilation=false" "-Dpolyglot.engine.TraceCompilation=true" "-Dpolyglot.engine.TraceCompilationDetails=true") ;;
 		-B*)
