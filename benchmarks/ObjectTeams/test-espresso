@@ -39,7 +39,7 @@ do
 		-printcompile)
 			JAVA_ARGS+=("--vm.Dgraal.PrintCompilation=true") ;;
 		-printdeopt)
-			JAVA_ARGS+=("--vm.Dgraal.TraceDeoptimization") ;;
+			JAVA_ARGS+=("--vm.Dgraal.TraceDeoptimization=true") ;;
 		-trace)
 			JAVA_ARGS+=("--vm.Dpolyglot.engine.AllowExperimentalOptions=true" "--vm.Dpolyglot.engine.BackgroundCompilation=false" "--vm.Dpolyglot.engine.TraceCompilation=true" "--vm.Dpolyglot.engine.TraceCompilationDetails=true") ;;
 		-B*)
