@@ -35,11 +35,13 @@ do
 		-debugvm)
 			JAVA_ARGS+=("--vm.agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=y") ;;
 		-dump)
-			JAVA_ARGS+=("-Dgraal.Dump=Truffle:4") ;;
+			JAVA_ARGS+=("--vm.Dgraal.Dump=Truffle:4") ;;
 		-printcompile)
-			JAVA_ARGS+=("-Dgraal.PrintCompilation=true") ;;
+			JAVA_ARGS+=("--vm.Dgraal.PrintCompilation=true") ;;
+		-printdeopt)
+			JAVA_ARGS+=("--vm.Dgraal.TraceDeoptimization") ;;
 		-trace)
-			JAVA_ARGS+=("-Dpolyglot.engine.AllowExperimentalOptions=true" "-Dpolyglot.engine.BackgroundCompilation=false" "-Dpolyglot.engine.TraceCompilation=true" "-Dpolyglot.engine.TraceCompilationDetails=true") ;;
+			JAVA_ARGS+=("--vm.Dpolyglot.engine.AllowExperimentalOptions=true" "--vm.Dpolyglot.engine.BackgroundCompilation=false" "--vm.Dpolyglot.engine.TraceCompilation=true" "--vm.Dpolyglot.engine.TraceCompilationDetails=true") ;;
 		-B*)
 			opt=${opt:2}
 			BENCHMARK="$opt" ;;
