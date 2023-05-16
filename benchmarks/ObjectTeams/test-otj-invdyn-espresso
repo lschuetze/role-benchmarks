@@ -1,0 +1,98 @@
+#!/bin/bash
+# make script fail on first error
+set -e
+
+#######################################################################
+# General properties
+#######################################################################
+pushd `dirname $0` > /dev/null
+SRC_PATH=`pwd`
+popd > /dev/null
+# make SCRIPT_PATH absolute
+cd ../../implementations
+pushd `dirname $0` > /dev/null
+SCRIPT_PATH=`pwd`
+popd > /dev/null
+source $SCRIPT_PATH/config.inc
+
+WEAV=$SRC_PATH/weavables.txt
+VERSION="3.8.0"
+APPROACH="graceful-indy"
+MAIN_CLASS="benchmark.Harness"
+BENCHMARK="benchmark.BankBenchmark"
+
+#######################################################################
+# Parse arguments, prepare Java command and execute
+#######################################################################
+PROGRAM_ARGS=()
+JAVA_ARGS=()
+
+for opt in "$@"
+do
+	case $opt in
+		-debug)
+			JAVA_ARGS+=("-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=y") ;;
+		-debugvm)
+			JAVA_ARGS+=("--vm.agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=y") ;;
+		-dump)
+			JAVA_ARGS+=("--vm.Dgraal.Dump=Truffle:4") ;;
+		-printcompile)
+			JAVA_ARGS+=("--vm.Dgraal.PrintCompilation=true") ;;
+		-printdeopt)
+			JAVA_ARGS+=("--vm.Dgraal.TraceDeoptimization=true") ;;
+		-trace)
+			JAVA_ARGS+=("--vm.Dpolyglot.engine.AllowExperimentalOptions=true" "--vm.Dpolyglot.engine.BackgroundCompilation=false" "--vm.Dpolyglot.engine.TraceCompilation=true" "--vm.Dpolyglot.engine.TraceCompilationDetails=true") ;;
+		-B*)
+			opt=${opt:2}
+			BENCHMARK="$opt" ;;
+		-J*)
+			opt=${opt:2}
+			JAVA_ARGS+=("$opt") ;;
+		*)
+			PROGRAM_ARGS+=("$opt") ;;
+	esac
+done
+
+#######################################################################
+# Remove old artefacts
+#######################################################################
+if [ -f $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar ]; then
+	rm $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar
+fi
+if [ -d $SRC_PATH/class-files ]; then
+	rm -rf $SRC_PATH/class-files
+fi
+if [ -d $SCRIPT_PATH/otdyn ]; then
+	rm -rf $SCRIPT_PATH/otdyn
+fi
+
+#######################################################################
+# Parse arguments, prepare Java command and execute
+#######################################################################
+# Build benchmarks-classic-3.31.0.jar
+/bin/bash $SCRIPT_PATH/build-otj.sh 17 $APPROACH $VERSION
+
+# Merge rewritten base classes and create a new JAR that contains these classes
+unzip -qq $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar -d $SRC_PATH/class-files
+
+# Create a dump file of rewritten classes
+/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G \
+	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar \
+	-javaagent:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otredyn_agent.jar \
+	-jar $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar $BENCHMARK 1 1
+
+# Copy dumped files
+cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
+cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmark/bank/Person.class
+
+# Pack new JAR
+jar -cfm $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .
+
+# Switch to Espresso and run the tweaked JAR
+/bin/bash $SCRIPT_PATH/espresso.sh ${JAVA_ARGS[*]} \
+	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar \
+	-cp $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar \
+	$MAIN_CLASS $BENCHMARK ${PROGRAM_ARGS[*]}
+
+
+#	--VM.add-reads jdk.dynalink=ALL-UNNAMED --VM.add-reads java.base=ALL-UNNAMED --VM.add-reads jdk.localedata=ALL-UNNAMED 

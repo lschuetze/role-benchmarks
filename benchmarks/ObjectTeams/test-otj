@@ -34,15 +34,10 @@ fi
 # Build benchmarks-classic-3.31.0.jar
 /bin/bash $SCRIPT_PATH/build-otj.sh 17 classic 3.31.0
 
-# Merge rewritten base classes and create a new JAR that contains these classes
-unzip $SRC_PATH/benchmarks-classic-3.31.0.jar -d $SRC_PATH/class-files
+/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.weavable=$WEAV -server -Xmx8G \
+	--add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED \
+	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar \
+	-javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar \
+	-jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1000
 
-# Create a dump file of rewritten classes
-/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
-#/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G --add-reads jdk.dynalink=ALL-UNNAMED --add-reads java.base=ALL-UNNAMED --add-reads jdk.localedata=ALL-UNNAMED -Xbootclasspath/a:$SCRIPT_PATH/objectteams/classic-3.31.0/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/classic-3.31.0/otredyn_agent.jar -jar $SRC_PATH/benchmarks-classic-3.31.0.jar benchmark.BankBenchmark 1 1
-
-cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
-cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmark/bank/Person.class
-#rm -rf $SRC_PATH/class-files
-#rm -rf $SCRIPT_PATH/otdyn
 
