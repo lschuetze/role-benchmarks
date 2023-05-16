@@ -19,7 +19,8 @@ WEAV=$SRC_PATH/weavables.txt
 VERSION="3.31.0"
 APPROACH="classic"
 MAIN_CLASS="benchmark.Harness"
-BENCHMARK="benchmark.BankBenchmark"
+#BENCHMARK="benchmark.BankBenchmark"
+BENCHMARK="benchmark.TeamBenchmark4"
 
 #######################################################################
 # Parse arguments, prepare Java command and execute
@@ -76,11 +77,15 @@ fi
 unzip -qq $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar -d $SRC_PATH/class-files
 
 # Create a dump file of rewritten classes
-/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G -Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar -javaagent:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otredyn_agent.jar -jar $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar $BENCHMARK 1 1
+/bin/bash $SCRIPT_PATH/java17.sh -ea -Dot.dump -Dot.weavable=$WEAV -server -Xmx8G \
+	-Xbootclasspath/a:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otre_min.jar \
+	-javaagent:$SCRIPT_PATH/objectteams/$APPROACH-$VERSION/otredyn_agent.jar \
+	-jar $SRC_PATH/benchmarks-$APPROACH-$VERSION.jar $BENCHMARK 1 1
 
 # Copy dumped files
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Account.class $SRC_PATH/class-files/benchmark/bank/Account.class
 cp $SCRIPT_PATH/otdyn/benchmark.bank.Person.class $SRC_PATH/class-files/benchmark/bank/Person.class
+cp $SCRIPT_PATH/otdyn/benchmark.team.Base.class $SRC_PATH/class-files/benchmark/team/Base.class
 
 # Pack new JAR
 jar -cfm $SRC_PATH/benchmarks-$APPROACH-$VERSION-patched.jar $SRC_PATH/class-files/META-INF/MANIFEST.MF -C $SRC_PATH/class-files .

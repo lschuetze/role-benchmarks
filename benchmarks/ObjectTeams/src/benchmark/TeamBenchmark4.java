@@ -71,6 +71,8 @@ public class TeamBenchmark4 extends Benchmark {
 	}
 
 	public boolean setUp(final int innerIterations) {
+		ClassRepository.getInstance();
+		
         team11 = new Team1();
         team12 = new Team1();
         team21 = new Team2();
