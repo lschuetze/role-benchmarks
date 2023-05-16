@@ -7,6 +7,8 @@ import benchmark.team.Team2;
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
+import org.eclipse.objectteams.otredyn.bytecode.ClassRepository;
+
 public class TeamBenchmark4 extends Benchmark {
 
 	// static Logger logger = LoggerFactory.getLogger(TeamBenchmark4.class);
@@ -72,7 +74,7 @@ public class TeamBenchmark4 extends Benchmark {
 
 	public boolean setUp(final int innerIterations) {
 		ClassRepository.getInstance();
-		
+
         team11 = new Team1();
         team12 = new Team1();
         team21 = new Team2();
