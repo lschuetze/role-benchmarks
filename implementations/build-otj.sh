@@ -57,9 +57,9 @@ then
         echo "ObjectTeams Indy 3.8.0"
         ant jar -lib $SCRIPT_PATH/objectteams/indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=indy
     fi
-elif [ "$2" = "grace-indy" ]
+elif [ "$2" = "graceful-indy" ]
 then
     echo "ObjectTeams Graceful Indy 3.8.0"
-    ant jar -lib $SCRIPT_PATH/objectteams/graceful-indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/graceful-indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=grace-indy
+    ant jar -lib $SCRIPT_PATH/objectteams/graceful-indy-3.8.0/ecotj-head.jar -Dlib=$SCRIPT_PATH/objectteams/graceful-indy-3.8.0 -Dsource=${1} -Dtarget=${1} -Dver=3.8.0 -Dapr=graceful-indy
 fi
 
