@@ -17,6 +17,11 @@ lazy val commonSettings = Seq(
   Compile / javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
 )
 
+ThisBuild / assemblyMergeStrategy := {   
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard   
+  case x => MergeStrategy.first 
+}
+
 lazy val scroll = ProjectRef(uri("https://github.com/max-leuthaeuser/SCROLL.git#master"), "core")
 
 lazy val main = (project in file("."))
@@ -24,7 +29,5 @@ lazy val main = (project in file("."))
   .dependsOn(scroll)
   .settings(commonSettings: _*)
   .settings(
-    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.17",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.17" % "test",
     Compile / run / javaOptions ++= Seq("--add-opens", "java.base/java.lang=ALL-UNNAMED")
   )
