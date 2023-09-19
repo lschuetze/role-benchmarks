@@ -1,6 +1,6 @@
 import bank.*;
 
-public class Bank extends Benchmark {
+public class BankBenchmark extends Benchmark {
     private bank.Bank bank;
 
     @Override

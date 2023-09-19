@@ -15,7 +15,11 @@
   </target>
 
 	<target name="jar" depends="compile">
-    <jar destfile="benchmarks.jar" basedir="${build.dir}" />
+    <jar destfile="benchmarks.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="Harness"/>
+      </manifest>
+    </jar>
   </target>
 
   <target name="checkstyle-jar">
