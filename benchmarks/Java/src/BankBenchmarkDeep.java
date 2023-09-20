@@ -1,6 +1,6 @@
 import bank.*;
 
-public class BankBenchmark extends Benchmark {
+public class BankBenchmarkDeep extends Benchmark {
     private bank.Bank bank;
 
     @Override
@@ -21,6 +21,8 @@ public class BankBenchmark extends Benchmark {
 
     public boolean setUp(final int innerIterations) {
         bank = new bank.Bank();
+
+        System.gc();
 
         for (int i = 0; i < innerIterations; ++i) {
             Customer customer = new Customer(new PersonCore());

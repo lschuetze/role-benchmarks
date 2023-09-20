@@ -2,7 +2,7 @@ import bank._
 
 import scroll.internal.dispatch.DispatchQuery
 
-class BankBenchmark extends Benchmark {
+class BankBenchmarkDeep extends Benchmark {
 
   var bank_var = new Bank
 
@@ -29,6 +29,8 @@ class BankBenchmark extends Benchmark {
   def setUp(innerIterations: Int): Boolean = {
     bank_var = new Bank
     val bank = bank_var
+
+    System.gc()
 
     for (i <- 1 to innerIterations) {
       var p = new Person

@@ -9,7 +9,7 @@ import bank.Transaction;
 import net.role4j.*;
 import net.role4j.Registry;
 
-public class BankBenchmark extends Benchmark {
+public class BankBenchmarkFlat extends Benchmark {
 
 	private final static Registry reg = Registry.getRegistry();
 	private Bank bank;
@@ -43,6 +43,9 @@ public class BankBenchmark extends Benchmark {
 	public boolean setUp(final int innerIterations) {
 		try {
 			this.bank = reg.newCompartment(Bank.class);
+
+			System.gc();
+
 			this.bank.activate();
 
 			for (int i = 0; i < innerIterations; ++i) {

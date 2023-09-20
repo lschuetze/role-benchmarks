@@ -5,12 +5,14 @@ import benchmark.bank.Bank;
 import benchmark.bank.Person;
 import benchmark.bank.CallinTransaction;
 
+import org.eclipse.objectteams.otredyn.bytecode.ClassRepository;
+
 // import org.slf4j.Logger;
 // import org.slf4j.LoggerFactory;
 
-public class BankBenchmark2 extends Benchmark {
+public class BankBenchmarkDeep extends Benchmark {
 
-    // static Logger logger = LoggerFactory.getLogger(BankBenchmark2.class);
+    // static Logger logger = LoggerFactory.getLogger(BankBenchmark.class);
 
     private Bank bank;
 
@@ -20,8 +22,15 @@ public class BankBenchmark2 extends Benchmark {
         float amount = 100.0f;
         for (Account from : bank.getCheckingAccounts()) {
             for (Account to : bank.getSavingAccounts()) {
-                    from.decrease(amount);
-                    to.increase(amount);
+                    CallinTransaction transaction = new CallinTransaction();
+                    transaction.activate();
+                    try {
+                        transaction.execute(from, to, amount);
+                    } catch (RuntimeException e) {
+                        e.printStackTrace();
+                    } finally {
+                        transaction.deactivate();
+                    }
             }
         }
         bank.deactivate();
@@ -29,7 +38,12 @@ public class BankBenchmark2 extends Benchmark {
     }
 
     public boolean setUp(final int innerIterations) {
+        ClassRepository.getInstance();
+        
         bank = new Bank();
+
+        System.gc();
+
         bank.activate();
 
         for (int i = 0; i < innerIterations; ++i) {
