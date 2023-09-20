@@ -27,11 +27,7 @@ else
     echo "Java version was neither 1.7, 1.8, 9, 11, 14, 17, or 20"
 fi
 
-echo "Build Java Benchmarks"
-pushd $SCRIPT_PATH/../benchmarks/Java
-if [ "$2" = "checkstyle" ]
-then
-    ant checkstyle
-else
-    ant jar
-fi
+echo "Build SCROLL Benchmarks"
+pushd $SCRIPT_PATH/../benchmarks/scroll
+
+sbt assembly

@@ -24,8 +24,8 @@ function check_for_rebench() {
             patch_version=`python3 -m pip list | grep -F ReBench | awk -F'[^0-9]+' '{print $4}'`
             # echo ${major_version}.${minor_version}.${patch_version}
             rebench_maj_ver=1
-            rebench_min_ver=0
-            rebench_pat_ver=1
+            rebench_min_ver=2
+            rebench_pat_ver=0
             if [ $major_version -lt $rebench_maj_ver ] || [ $minor_version -lt $rebench_min_ver ] || [ $patch_version -lt $rebench_pat_ver ]; then
                 echo "WARN: rebench ... Outdated."
                 python3 -m pip install --user --upgrade rebench==$rebench_maj_ver.$rebench_min_ver.$rebench_pat_ver
