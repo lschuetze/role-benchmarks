@@ -8,7 +8,7 @@ public class BankBenchmarkFlat extends Benchmark {
         for (Account from : bank.getCheckingAccounts()) {
             float amount = from.getBalance() / (float) innerIterations;
             for (Account to : bank.getSavingAccounts()) {
-                from.decreate(amount);
+                from.decrease(amount);
                 to.increase(amount);
             }
         }

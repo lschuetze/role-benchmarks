@@ -64,7 +64,7 @@ public team class Bank {
         // private static final float LIMIT = 100.0f;
 
         public void before() {
-            // logger.info("before CheckingsAccount decrease");
+             //logger.info("before CheckingsAccount decrease");
         }
 
         public void before2() {
@@ -72,9 +72,11 @@ public team class Bank {
         }
 
         callin float limited(float amount) {
-            // logger.info("replace CheckingsAccount decrease BEGIN");
+            //logger.info("replace CheckingsAccount decrease BEGIN");
+            //System.out.println("replace CheckingsAccount decrease BEGIN");
             float f = base.limited(amount);
-            // logger.info("replace CheckingsAccount decrease END");
+            //System.out.println("replace CheckingsAccount decrease END");
+            //logger.info("replace CheckingsAccount decrease END");
             return f;
         }
 

@@ -25,6 +25,11 @@ case class Bank() extends Compartment {
   def addCheckingsAccount(acc: Account) =
     checkingAccounts = checkingAccounts :+ acc
 
+  def transact(from : Account, to : Account, amount : Float) = {
+    (+from).decrease(amount)
+    (+to).increase(amount)
+  }
+  
   case class Customer() {
     var accounts = ListBuffer[Accountable]()
 

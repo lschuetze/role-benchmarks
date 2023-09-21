@@ -12,8 +12,7 @@ class BankBenchmarkFlat extends Benchmark {
     for (from <- bank.getCheckingAccounts()) {
       var amount: Float = from.getBalance() / innerIterations;
       for (to <- bank.getSavingAccounts()) {
-        (+from).decreate(amount)
-        (+to).increase(amount)
+        bank.transact(from, to, amount)
       }
     }
     return true;
