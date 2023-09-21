@@ -15,6 +15,6 @@ TARGET_PATH=$DATA_ROOT/$NUM_PREV-$REV
 LATEST=$DATA_ROOT/latest
 
 mkdir -p $TARGET_PATH
-cp benchmark.data $TARGET_PATH/
+cp analysis-ch4.data $TARGET_PATH/
 rm $LATEST
 ln -s $TARGET_PATH $LATEST
